@@ -1,0 +1,105 @@
+:root {
+    --colorFont:#333;
+    --colorFontHeader:#fff;
+    --colorHeader:#e8a211;
+    --colorFontHeaderActive:#f56804;
+    --colorFontField:#f56804;
+    --colorBorder:#666;
+    --backgroundActive:#ffff00;
+    --colorActive:#e8a211;
+  }
+  nav.nav-extended {
+     background-image: linear-gradient(var(--colorHeader) ,var(--colorFontHeaderActive));
+  } 
+  .navStyle{
+      background-color: transparent;
+      margin-right: 10px;
+  }
+  nav {
+      background-color: var(--colorHeader) !important;
+  }
+  nav.nav-extended .nav-wrapper {
+      min-height: 8em;
+  }
+  nav.nav-extended {
+      height: 100px !important;
+  }
+  nav.nav-extended .nav-wrapper ul a, nav.nav-extended .nav-wrapper ul a:hover {
+      height: 2em;
+      padding: .5em! important;
+  }
+  nav.nav-extended .nav-wrapper {
+      min-height: 65px !important;
+  }
+  nav.nav-extended .nav-content {
+        background-color: transparent ;
+        height: 38px;
+        padding: 7px 5px;
+  } 
+  .tabs {
+      height: auto !important;
+  }    
+  .tab_{
+    height: auto !important;
+  }
+  .tab_ li.active {
+      color: var(--colorHeader) !important;
+      background:#fff;
+  }
+  .routerLink{
+    vertical-align: middle;
+    display:flex;
+    color: var(--colorFontHeader) !important;
+  }
+  select{
+    display:inline !important;
+    color: var(--colorFont);
+  }
+  .router-link-active{
+    color: var(--colorHeader) ;
+  }
+  .tab_ li a{
+    color:var(--colorFontHeader) !important;
+  }
+  .tab_ li.active a {
+      color: var(--colorHeader) !important;
+      background: var(--colorFontHeader) !important;
+  }
+  .tabs.tabs-transparent {
+      background-color: transparent;
+      margin-top: 1px;
+      padding: 5px;
+      padding: 1px;
+  }
+  .icon-tab{
+    font-size: 1.25em !important;
+    height: 1.25em !important;
+    line-height: 1.25em !important;
+  }
+  .icon-log{
+    font-size: 1.25em !important;
+    height: 1.25em !important;
+    line-height: 1.25em !important;
+  }
+  nav .brand-logo {
+      position: absolute;
+      color: var(--colorFontHeader) !important;
+      display: inline-block;
+      font-size: 2.8rem !important;
+      font-weight: 600 !important;
+      padding: 0;
+      margin-left: 20px;
+  }
+  nav ul a {
+      font-size: 1.1em !important;
+      padding: 0 .25em !important;
+      white-space: normal !important;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1em;
+      color: var(--colorFontHeader) !important;
+  }
+  nav ul li {
+      font-size: 1em;
+      padding: .1em;
+  }

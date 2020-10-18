@@ -1,0 +1,225 @@
+:root {
+    --colorFont:#333;
+    --colorFontHeader:#fff;
+    --colorHeader:#e8a211;
+    --colorFontHeaderActive:#f56804;
+    --colorFontField:#f56804;
+    --colorBorder:#666;
+    --backgroundActive:#ffff00;
+    --colorActive:#e8a211;
+  }
+  html {    
+      height:100%;
+      width:100%;
+  }
+  #header{
+    font-size:1rem;
+  }
+  tbody td, th {
+      font-size: 1.1em;
+  }
+  body{
+      border-left: 15px solid var(--colorFontField);
+      border-right: 15px solid var(--colorFontField);
+      border-top: 10px solid var(--colorFontField);
+      border-bottom: none;
+      height:100%;
+  }
+  a {
+      color: var(--colorFontField) !important;
+  }    
+  .fa-icon{
+    font-size:2em;
+    padding:5px;
+  }
+  .row .col{
+    font-size: 1.1em;
+    border-right: none;
+    border-bottom: none;
+  }
+  i.large {
+      font-size: 6rem;
+      color:var(--colorFontField);
+  }
+  button, .btn, .btn-large, .btn-small {
+    background: var(--colorHeader) !important;
+    color: var(--colorFontHeader) !important;
+    cursor:pointer;
+  }
+  .btn, .btn-large, .btn-small{
+    background: var(--colorHeader) !important;
+    color: var(--colorFontHeader) !important;
+  }
+  .btIcon{
+     background: transparent !important;
+     color: var(--colorFontField) !important;
+     border:none !important;
+  }
+  .btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+       background: var(--colorHeader) !important;
+       color: var(--colorFontHeader) !important;
+  }
+  .activeButton{
+      background:var(--backgroundActive) !important;
+      color: var(--colorActive) !important;
+      border: thin solid var(--colorActive) !important;
+      border-radius: 7px;
+      cursor:pointer;
+  }
+  #app a[classname='findbtn']{
+      background-color:var(--colorHeader) !important;
+  }
+  #app .findbtn{
+      background-color: var(--colorHeader) !important;;
+  }
+  [type="radio"]+span:before, [type="radio"]+span:after {
+      width: 18px !important;
+      height: 18px !important;
+  }
+  [type="radio"].with-gap:checked+span:after {
+      transform: scale(.6) !important;
+  }
+  [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+      background-color: var(--colorHeader)  !important;
+  }
+  [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+      border: 1px solid var(--colorBorder) !important;
+  }
+  option:checked {
+   background: var(--colorHeader)  !important;
+  }
+  [type="checkbox"].filled-in:checked+span:not(.lever):after {
+      border: 2px solid var(--colorFontHeader)  !important;
+      background-color:var(--colorHeader) !important;
+  }
+  [type="checkbox"]:checked:disabled+span:before {
+      border-right: 2px solid var(--colorFontHeader) !important;
+      border-bottom: 2px solid var(--colorFontHeader) !important;
+  }
+  [type="checkbox"]:checked+span:not(.lever):before {
+      top: -4px;
+      left: -5px;
+      width: 12px;
+      height: 22px;
+      border-top: 2px solid transparent;
+      border-left: 2px solid transparent;
+      border-right: 2px solid var(--colorFontHeader) !important;
+      border-bottom: 2px solid var(--colorFontHeader) !important;
+      -webkit-transform: rotate(40deg);
+      transform: rotate(40deg);
+  }    
+  [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      width: 25px;
+      height: 25px;
+  }
+  [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+     position:initial !important;
+     opacity:1 !important;
+  }
+  [type="checkbox"]:not(:checked) {    
+      border: 2px solid var(--colorFontHeader) !important;
+      background-color:var(--colorHeader) !important;
+  }
+  option[selected] {
+      background: var(--colorHeader) !important;
+  }
+  .pagination li.active a {
+      color: var(--colorFontHeader) !important;
+      background: var(--colorHeader) !important;
+  }
+  .pagination li a {
+      color: var(--colorFont) !important;
+  }    
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background: var(--colorHeader) !important;
+  }  
+  .erroValida{
+    color:rgb(194, 8, 8) !important; 
+    font-size:1.3rem !important;
+  }
+  .error-record{
+    padding: 5px;
+    font-weight: bold;
+    font-size: 1.15rem;
+    color: #464545;
+  }
+  .error-icon{
+    padding: 5px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #da4343;
+  }
+  .error-icon i{
+    vertical-align:middle;
+  }
+  .errors-container{
+    background: #f1eded;
+    border: 1px solid #cac7c7;
+    border-radius: 7px;
+    margin: 0;
+    width: 98%;
+  }
+  .toastinfo{
+    background-color: var(--colorHeader) !important;
+    opacity:0.9; 
+    font-size:1.5rem !important;
+    line-height:2rem;
+    border-radius:10px !important;
+    color:var(--colorFontHeader) !important;
+    border: thin solid var(--colorFontHeader) !important;
+    width:300px;
+  }
+  .toasterror{
+    background-color:#ffcc00 !important;
+    font-size:1.5rem !important;
+    line-height:2rem;
+    color:rgb(36, 35, 35) !important; 
+    border: 1px solid #333;
+    border-radius:10px !important;
+    width:300px;
+  }
+  #toast-container {
+    background-color:transparent !important;  
+    top: auto !important;
+    border-radius:10px !important;
+    bottom: 84% !important;
+    max-width:300px !important;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;  
+    padding:0;  
+  }
+  .fixContainer {
+      width: 98% !important;
+      max-width: 98% !important;
+      color: var(--colorFont);
+  }
+  .separator{
+    height:15px;
+    width:100%;
+  }
+  select{
+    display:inline !important;
+    color: var(--colorFont);
+    border: thin solid var(--colorFontField) !important;
+    border-radius: 5px !important;
+    height: 2.5em;
+  }
+  input,textarea{
+    color: var(--colorFont);
+  }
+  .modal {
+      z-index: 9999;
+  }    
+  .modal .fieldLabel{
+     color: var(--colorFontField) !important;
+     font-weight: 500;
+     font-size: 1.1rem;
+  }
+  label {
+      font-size: 1rem !important;
+      color: #666 !important;
+  }

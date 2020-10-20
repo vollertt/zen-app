@@ -9,6 +9,12 @@ const router = new VueRouter({
     mode:'history',
     routes: [        
         {
+            path:name+'/',
+            props:true,
+            name:'Produto',
+            component:() => import('../components/item/Produto')
+        },
+        {
             path:name+'/zen-app/',
             props:true,
             name:'Produto',

@@ -5,7 +5,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 export let http = axios.create({
-    baseURL: 'https://zen-a.herokuapp.com//zen-a/',
+    baseURL: 'http://localhost/zen-api/',
     timeout: 10000
 })
 

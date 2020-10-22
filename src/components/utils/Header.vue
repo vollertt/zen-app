@@ -59,10 +59,10 @@ export default {
     */
     getRoutes(){
         this.routes=[
-              { path:'/zen-app', name:'Produto', title:'Produtos', icon:'person'},
-              { path:'/zen-app/item/linha-produtos', name:'LinhaProduto', title:'Linha Produtos', icon:'book'},
-              { path:'/zen-app/item/grupo-produtos', name:'GrupoProduto', title:'Grupo Produtos', icon:'book'},
-              { path:'/zen-app/item/veiculos', name:'Veiculo', title:'Veículos', icon:'book'}             
+              { path:'/zen-app', name:'Produto', title:'Produtos', icon:'list'},
+              { path:'/zen-app/item/linha-produtos', name:'LinhaProduto', title:'Linha Produtos', icon:'filter_list'},
+              { path:'/zen-app/item/grupo-produtos', name:'GrupoProduto', title:'Grupo Produtos', icon:'group_work'},
+              { path:'/zen-app/item/veiculos', name:'Veiculo', title:'Veículos', icon:'directions_car'}             
         ]
         this.setIndexRoute(0)
     }

@@ -1,6 +1,6 @@
 <!-- Componente do item de paginacao do Datable -->
 <template>
-    <div :id="loadPage" style="width:100%;text-align: center;" v-if="loadPage!==undefined && loadPage>0">
+    <div :id="loadPage" style="width:100%;text-align: center;" v-if="loadPage!==undefined && loadPage>0 && totalItens>0">
         Página: {{pageActual+1}} de {{Math.ceil((totalItens/pageSize))}} [{{pageActual*pageSize+1}} a {{(pageActual+1)*pageSize}} de {{totalItens}} registros]
         <ul class="pagination">
            <li v-if="paginate_-pageSize>=0">
@@ -13,6 +13,9 @@
                <a href="#!" v-on:click="paginate(1)"><i class="material-icons">chevron_right</i></a>
            </li>
         </ul>
+    </div>
+    <div styyle="width:100%;" v-else-if="totalItens===0">
+      <span style="text-align:center;display:block;font-size:1.25rem;">{{msgNot}}</span>
     </div>
 </template>
 
@@ -31,6 +34,9 @@ export default {
       },
       loadPage_:{
           type:Number
+      },
+      msgNot_:{
+        type:String
       }
     },
     watch : {
@@ -55,6 +61,11 @@ export default {
                 this.pageSize=this.pageSize_ 
               } 
           }            
+        },
+        msgNot_: {
+            handler: function (){ 
+                this.msgNot=this.msgNot_ 
+            }         
         }
     },
 
@@ -66,7 +77,8 @@ export default {
         paginate_:0,
         loadPage:0,
         //nPage:15,
-        indexPage:0
+        indexPage:0,
+        msgNot:this.msgNot_
       }
     },
 

@@ -42,6 +42,7 @@ export default {
 
   methods:{ 
 
+
     /*
     * Route init to push to user after Login ok (emit by Header)
     */

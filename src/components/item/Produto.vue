@@ -3,11 +3,14 @@
   <div>
     <Loading :disabled.sync="disable" :isModal_="true"></Loading>
         <cadastro v-if="hasModal===true" ref="cad" @emitEdit="updateEdit"></cadastro>  
+        <confirmDialog  v-if="hasConfirm===true" :loadId_.sync="loadConfirm" 
+                        :msg_="msgConfirm" @emitConfirm="updateConfirm">
+        </confirmDialog> 
         <br>
            <div class="row">
                <div class="col s2" style="text-align:center;">
                     <div >         
-                        <button title="novo Produto" v-on:click="showModal()" data-target="cadastroProduto" class="modal-trigger btn-small">
+                        <button title="novo Produto" v-on:click="showModal()" data-target="cadastroProduto" class="modal-trigger btn-small btNew">
                             <i class="material-icons">add_box</i>+ 
                         </button> 
                     </div>
@@ -38,33 +41,37 @@
                   :totalItens_="produtos.totalElements" 
                   :pageActual_="produtos.pageable.pageNumber"
                   :loadPage_.sync="loadPage"
-                  @emitPage="updatePage"></paginate>
-           <table id="produtos">
-              <tableHeader
-                  :colKey_="['ds_linha_produto','ds_grupo_produto','cd_item','ds_veiculo','ds_marca','peso_bruto','peso_liquido','dt_inclusao']" 
-                  :colName_="['Linha Produto','Grupo','Código','Veículo','Marca','Peso Bruto','Peso Líquido','Cadastro']" 
-                  :colSize_="[25,15,5,12,10,7,7,10]"
-                  :data_="produtos.content" 
-                  :loadPage_.sync="loadPage"
-                  @emitSort="updatePageSort"></tableHeader>
-              <tbody>
-                <tr v-for="produto of produtos.content" :key="produto.id_produto">
-                    <td>{{produto.linha_produto.ds_linha_produto}}</td>
-                    <td>{{produto.linha_produto.grupo_produto.ds_grupo_produto}}</td>
-                    <td>{{produto.cd_item}}</td>
-                    <td v-if="produto.veiculo!==null && produto.veiculo!==undefined">{{produto.veiculo.ds_veiculo}}</td><td v-else></td>
-                    <td v-if="produto.veiculo!==null && produto.veiculo!==undefined && produto.veiculo.marca_veiculo!==null ">{{produto.veiculo.marca_veiculo.ds_marca}}<td v-else></td>
-                    <td>{{produto.peso_bruto}}</td>
-                    <td>{{produto.peso_liquido}}</td>
-                    <td>{{moment(produto.dt_inclusao).format('DD/MM/YYYY HH:mm:ss')}}</td>
-                    <td>
-                        <button title="remove produto" v-bind:disabled="hasModal === true"  v-on:click="removeProduto(produto)" class="btn-small btEdit">
-                            <i class="material-icons">delete</i>
-                        </button>                 
-                    </td>
-                </tr>
-              </tbody>      
-          </table>           
+                  msgNot_="Não há registros de produtos cadastrados"
+                  @emitPage="updatePage">
+           </paginate>
+           <div class="responsive-table">       
+            <table id="produtos" class="table">
+                <tableHeader
+                    :colKey_="['ds_linha_produto','ds_grupo_produto','cd_item','ds_veiculo','ds_marca','peso_bruto','peso_liquido','dt_inclusao']" 
+                    :colName_="['Linha Produto','Grupo','Código','Veículo','Marca','Peso Bruto','Peso Líquido','Cadastro']" 
+                    :colSize_="[25,15,5,12,10,7,7,10]"
+                    :data_="produtos.content" 
+                    :loadPage_.sync="loadPage"
+                    @emitSort="updatePageSort"></tableHeader>
+                <tbody>
+                    <tr v-for="produto of produtos.content" :key="produto.id_produto">
+                        <td>{{produto.linha_produto.ds_linha_produto}}</td>
+                        <td>{{produto.linha_produto.grupo_produto.ds_grupo_produto}}</td>
+                        <td>{{produto.cd_item}}</td>
+                        <td v-if="produto.veiculo!==null && produto.veiculo!==undefined">{{produto.veiculo.ds_veiculo}}</td><td v-else></td>
+                        <td v-if="produto.veiculo!==null && produto.veiculo!==undefined && produto.veiculo.marca_veiculo!==null ">{{produto.veiculo.marca_veiculo.ds_marca}}<td v-else></td>
+                        <td>{{produto.peso_bruto}}</td>
+                        <td>{{produto.peso_liquido}}</td>
+                        <td>{{moment(produto.dt_inclusao).format('DD/MM/YYYY HH:mm:ss')}}</td>
+                        <td>
+                            <button title="remove produto" v-bind:disabled="hasModal === true || hasConfirm===true"  v-on:click="confirm(produto)" class="btn-small btRemove">
+                                <i class="material-icons">delete</i>
+                            </button>                 
+                        </td>
+                    </tr>
+                </tbody>      
+            </table>      
+        </div>     
    </div>    
 </template>
 
@@ -77,9 +84,10 @@ import Loading from '@/components/utils/Loading'
 import paginate from '@/components/utils/Paginate.vue'
 import tableHeader from '@/components/utils/TableHeader.vue'
 import cadastro from './CadastroProduto.vue'
+import confirmDialog from '@/components/utils/ConfirmDialog.vue'
 
  export default{   
-    components: {Loading,paginate,tableHeader,cadastro},
+    components: {Loading,paginate,tableHeader,cadastro,confirmDialog},
     data (){
       return{
         moment: moment,
@@ -95,7 +103,10 @@ import cadastro from './CadastroProduto.vue'
         nPage:15,
         sort:'ds_linha_produto',
         dir:'ASC',
-        loadPage:0
+        loadPage:0,
+        hasConfirm:false,
+        msgConfirm:'',
+        loadConfirm:0
     }
   },
 
@@ -116,9 +127,9 @@ import cadastro from './CadastroProduto.vue'
              this.disable=false
           },
 
-          closeModal: function() {                
-                this.errors=[]
+          closeModal: function() {  
                 this.hasModal=false
+                this.errors=[]                
                 this.disable=false
           },      
 
@@ -128,6 +139,20 @@ import cadastro from './CadastroProduto.vue'
              }
              this.closeModal()
           },           
+
+          updateConfirm(param){
+              if(param===true){                  
+                 this.removeProduto(this.remove_produto)
+              }
+              this.hasConfirm=false              
+          },
+
+          confirm(produto){             
+              this.hasConfirm=true
+              this.remove_produto=produto;             
+              this.msgConfirm='Remove produto com código:'+ produto.cd_item+ '?' 
+              this.loadConfirm=parseInt(Math.random()*100000)
+          },
 
           callMessage(txt,tp){            
               M.toast({html: txt, displayLength:2000, classes: 'toast'+tp})
@@ -174,8 +199,7 @@ import cadastro from './CadastroProduto.vue'
           async removeProduto(produto){
               this.disable=true
               this.removeConfirm=true
-              if (window.confirm("Remove Produto? código:"+ produto.cd_item)) { 
-                  await Produtos.removeProduto(produto).then(resposta => {
+              await Produtos.removeProduto(produto).then(resposta => {
                         resposta
                         this.callMessage('Removido com sucesso! Produto cód:' + produto.cd_item,'info')
                         this.getProdutos(0)
@@ -183,17 +207,14 @@ import cadastro from './CadastroProduto.vue'
                   }).catch((error) => {  
                         this.disable=false
                         this.callMessage(''+error,'error')
-                  })  
-              }else{
-                 this.disable=false
-              }                             
+                  })                                            
            },
 
             updatePage(par){
                this.getProdutos(par)
             },
 
-             updatePageSort(par){
+            updatePageSort(par){
                  this.sort=par[0]
                  this.dir=par[1]
                  this.getProdutos(0)
@@ -204,32 +225,48 @@ import cadastro from './CadastroProduto.vue'
 
 </script>
 
+
 <style>
-#produtos td, #produtos th {
+#produtos{
+    width:98%;
+}
+#produtos td, #produtos th  {
     padding: 2px 2px;
+    max-width: 300px;
+    text-align: left;
 }
 #produtos .active {
-  background-color: #666;
-  color: white !important;
+  background-color:var(--colorHeader)!important;
+  color: #333 !important;
   width:100%;
   display:block
 }
-.modalRemove{
-    width: 98.5%;
-    height: 100%;
-    top: 10px;
-    display: inline;
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-color: #9e9e9ea1;
-    padding: 0;
-    max-height: 98%;
-    margin: auto;
+@media screen and (max-width: 800px) {
+  #produtos td, #produtos th{
+    font-size:.95rem;
+  }
 }
-.modalRemoveContent{
-    position:relative;
-    top:50%;
-    left:40%;
+@media screen and (max-width: 600px) {
+  #produtos  td, #produtos th{
+    font-size:.85rem;
+  }
 }
+@media screen and (max-width: 800px) {
+    .btRemove, .btNew{
+      height: 24px !important;
+      line-height: 24px !important;
+      font-size: 10px !important;
+      width: 30px;
+      padding: 0 2px !important;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .btRemove, .btNew{
+      height: 18px !important;
+      line-height: 18px !important;
+      font-size: 10px !important;
+      width: 24px;
+      padding: 0 2px;
+    }
+  }
 </style>

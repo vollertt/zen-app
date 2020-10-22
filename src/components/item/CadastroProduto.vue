@@ -1,7 +1,7 @@
 
 <!-- Componente associado ao Modal de Cadastro de Novo Produto e integrado com o item Produto da aplicação-->
 <template>
-  <div id="top">
+  <div id="cadastroDialog">
     <div id="cadastroProduto" class="modal">
        <div class="modal-content cadastro">
                <Loading :disabled.sync="disable" :isModal_="true"></Loading>           
@@ -13,7 +13,7 @@
                </ul>
                <form  @submit.prevent="salvar"> 
                <div>
-                    <select v-on:change="getLinhaProdutos()" v-model="selectedGrupo" id="grupo_produto_cadastro" name="grupo_produto_cadastro">
+                    <select required v-on:change="getLinhaProdutos()" v-model="selectedGrupo" id="grupo_produto_cadastro" name="grupo_produto_cadastro">
                             <option value="0" selected="selected">Grupo Produto</option>
                             <option v-for="(grupo,index) in grupo_produto" 
                                 :key="index" 
@@ -21,7 +21,7 @@
                     </select> 
                </div> 
                <div > 
-                   <select v-if="selectedGrupo!=='0'" v-on:change="getVeiculos()" v-model="selectedLinha" id="linha_produto_cadastro" name="linha_produto_cadastro">
+                   <select required v-if="selectedGrupo!=='0'" v-on:change="getVeiculos()" v-model="selectedLinha" id="linha_produto_cadastro" name="linha_produto_cadastro">
                         <option value="0" selected="selected">Linha Produto</option>
                         <option v-for="(linha,index) in linha_produto" 
                                 :key="index" 
@@ -38,22 +38,22 @@
                </div>
                <div>
                     <label class="fieldLabel">Peso Líquido:</label>
-                    <input id="peso_liquido" minlength="1"  type="number"  v-model="peso_liquido">
+                    <input id="peso_liquido" minlength="0.01" required type="number" step="0.01" v-model="peso_liquido">
                </div>
                <div>
                     <label class="fieldLabel">Peso Bruto:</label>
-                    <input id="peso_bruto" minlength="1"  type="number"  v-model="peso_bruto">
+                    <input id="peso_bruto" minlength="0.01" required type="number" step="0.01" v-model="peso_bruto">
                </div>
                <div>
                     <label class="fieldLabel">Código:</label>
-                    <input id="código" minlength="1"  type="number"  v-model="codigo">
+                    <input id="código" required minlength="1" type="number" step="1" v-model="codigo">
                </div>  
                 <div class="row">
-                       <div class="col s2">
+                       <div class="col s3">
                             <button v-bind:disabled="disable === true" class="btn-small">
                                 Salvar<i class="material-icons left">save</i></button>
                         </div>
-                        <div class="col s2">
+                        <div class="col s3">
                             <button v-bind:disabled="disable === true"  type="button" v-on:click="cancel()" class="btn-small">
                                     Cancelar<i class="material-icons left">cancel</i>                        
                             </button>
@@ -100,6 +100,11 @@ export default{
     
   methods: {  
 
+          isNumberValid(val){ 
+             var regexp = /(?=[^\0])(?=^([0-9]+){0,1}(\.[0-9]{1,2}){0,1}$)/
+             return regexp.test(val)
+          },
+
           validaCadastro: function () {
             this.errors = []
               if (this.selectedGrupo==='0') {
@@ -116,8 +121,15 @@ export default{
               }  
               if ((this.peso_bruto!==undefined && this.peso_bruto!==null && this.peso_bruto!=='') &&
                   (this.peso_liquido!==undefined && this.peso_liquido!==null && this.peso_liquido!=='')){
-                    if (parseInt(this.peso_bruto)<=parseInt(this.peso_liquido)){
+                    if (parseFloat(this.peso_bruto)<=parseFloat(this.peso_liquido)){
                         this.errors.push('Peso Bruto deve ser maior que o líquido');
+                    }else{                      
+                      if(this.isNumberValid(this.peso_bruto)===false){
+                         this.errors.push('Peso Bruto deve ter máximo duas casas decimais');
+                      }
+                      if(this.isNumberValid(this.peso_liquido)===false){
+                         this.errors.push('Peso Líquido deve ter máximo duas casas decimais');
+                      }
                     }
               }
               if (this.codigo===undefined || this.codigo===null || this.codigo==='') {
@@ -211,7 +223,7 @@ export default{
     font-size:1.2em;color:red;padding:5px;
 }
 
-#top{
+#cadastroDialog{
     background: #dadcdc8c;
     width: 100%;
     height: 100%;    
@@ -220,14 +232,25 @@ export default{
     top:0px;
 }
 #cadastroProduto {
-    display: inline !important;
+    display: inline-block !important;
     background: #fff;
     width: 50%;
-    height: 75%;
-    border: 5px solid #f58237;
+    height:auto;
+    max-height: 85%;
+    border: 3px solid var(--colorHeader);
     margin: 0 auto;
     border-radius: 15px;
     margin-top: 15px;
     overflow-y:auto;
+}
+@media screen and (max-width: 900px) {
+  #cadastroProduto{
+    width:80%;
+  }
+}
+@media screen and (max-width: 600px) {
+  #cadastroProduto {
+    width:80%;
+  }
 }
 </style>

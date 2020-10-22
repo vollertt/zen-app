@@ -3,7 +3,7 @@
     --colorFontHeader:#fff;
     --colorHeader:#e8a211;
     --colorFontHeaderActive:#f56804;
-    --colorFontField:#f56804;
+    --colorFontField:#666;
     --colorBorder:#666;
     --backgroundActive:#ffff00;
     --colorActive:#e8a211;
@@ -19,14 +19,14 @@
       background-color: var(--colorHeader) !important;
   }
   nav.nav-extended .nav-wrapper {
-      min-height: 8em;
+      min-height: 8rem;
   }
   nav.nav-extended {
       height: 100px !important;
   }
   nav.nav-extended .nav-wrapper ul a, nav.nav-extended .nav-wrapper ul a:hover {
-      height: 2em;
-      padding: .5em! important;
+      height: 2rem;
+      padding: .5rem! important;
   }
   nav.nav-extended .nav-wrapper {
       min-height: 65px !important;
@@ -72,26 +72,27 @@
       padding: 1px;
   }
   .icon-tab{
-    font-size: 1.25em !important;
-    height: 1.25em !important;
-    line-height: 1.25em !important;
+    font-size: 1.5rem !important;
+    height: 1.5rem !important;
+    line-height: 1.5rem !important;
   }
   .icon-log{
-    font-size: 1.25em !important;
-    height: 1.25em !important;
-    line-height: 1.25em !important;
+    font-size: 1.25rem !important;
+    height: 1.25rem !important;
+    line-height: 1.25rem !important;
   }
   nav .brand-logo {
       position: absolute;
       color: var(--colorFontHeader) !important;
       display: inline-block;
-      font-size: 2.8rem !important;
+      font-size: 2.25rem !important;
       font-weight: 600 !important;
       padding: 0;
       margin-left: 20px;
+      width:60%;
   }
   nav ul a {
-      font-size: 1.1em !important;
+      font-size: 1.1rem !important;
       padding: 0 .25em !important;
       white-space: normal !important;
       word-wrap: break-word;
@@ -100,6 +101,8 @@
       color: var(--colorFontHeader) !important;
   }
   nav ul li {
-      font-size: 1em;
-      padding: .1em;
+      font-size: 1rem;
+      padding: .1rem;
   }
+
+  

@@ -3,7 +3,7 @@
     --colorFontHeader:#fff;
     --colorHeader:#e8a211;
     --colorFontHeaderActive:#f56804;
-    --colorFontField:#f56804;
+    --colorFontField: #666;
     --colorBorder:#666;
     --backgroundActive:#ffff00;
     --colorActive:#e8a211;
@@ -16,24 +16,28 @@
     font-size:1rem;
   }
   tbody td, th {
-      font-size: 1.1em;
+      font-size: 1.1rem;
   }
   body{
-      border-left: 15px solid var(--colorFontField);
-      border-right: 15px solid var(--colorFontField);
-      border-top: 10px solid var(--colorFontField);
-      border-bottom: none;
-      height:100%;
+      width:100%;
+      min-height:100%;
+  }
+  #app{
+    clear:both;
+    min-height:98vh;
+    border-left: 10px solid var(--colorFontField);
+    border-right: 10px solid var(--colorFontField);
+    border-top: 10px solid var(--colorFontField); 
   }
   a {
       color: var(--colorFontField) !important;
   }    
   .fa-icon{
-    font-size:2em;
+    font-size:2rem;
     padding:5px;
   }
   .row .col{
-    font-size: 1.1em;
+    font-size: 1.1rem;
     border-right: none;
     border-bottom: none;
   }
@@ -202,7 +206,7 @@
     width:100%;
   }
   select{
-    display:inline !important;
+    display:inline-block !important;
     color: var(--colorFont);
     border: thin solid var(--colorFontField) !important;
     border-radius: 5px !important;
@@ -223,3 +227,4 @@
       font-size: 1rem !important;
       color: #666 !important;
   }
+  
